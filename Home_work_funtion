@@ -1,0 +1,38 @@
+class SmartBlindDog(Agent):
+    def __init__(self, program):
+        super().__init__(program)
+        self.visited = set()    # จำตำแหน่งที่เคยไป
+        self.current_position = (0, 0)
+        
+    def smart_program(percepts, self):
+        # TODO: หลีกเลี่ยงไม่ให้กลับไปที่เดิม
+        self.current_position = percepts
+        self.visited.add(percepts)
+        return self.program(percepts) 
+
+directions = {
+    'Up' : (0,1),
+    'Down': (0, -1),
+    'Left': (-1,0),
+    'Right': (1, 0)
+}
+
+
+    # TODO: เพิ่มกลยุทธ์การค้นหา
+def smart_program(percept):
+    x, y = percept
+
+    agent = smart_program.agent_instance
+
+    for action, (dx, dy) in directions.items():
+        next_pos = (x + dx, y + dy)
+        if next_pos not in agent.visited:
+            return action
+        
+    import random
+    return random.choice(list(directions.keys()))
+
+def create_smart_blind_dog():
+    agent = SmartBlindDog(smart_program)
+    smart_program.agent_instance = agent
+    return agent
